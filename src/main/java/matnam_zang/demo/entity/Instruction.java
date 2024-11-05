@@ -1,5 +1,8 @@
 package matnam_zang.demo.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +21,7 @@ public class Instruction {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Recipe recipe;
 
     private int stepNumber;

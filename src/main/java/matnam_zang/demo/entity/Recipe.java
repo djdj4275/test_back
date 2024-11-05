@@ -3,6 +3,9 @@ package matnam_zang.demo.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,6 +28,7 @@ public class Recipe {
 
     @ManyToOne
     @JoinColumn(name = "user_id") // recipe 테이블에서 user_id라는 컬럼으로 User 테이블의 pk를 참조함
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Column(nullable = false) // null 허용 x
@@ -53,5 +57,5 @@ public class Recipe {
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
-    private List<Like> likes;
+    private List<Favorite> favorites;
 }

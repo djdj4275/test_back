@@ -2,6 +2,9 @@ package matnam_zang.demo.entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,10 +23,12 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "recipe_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Recipe recipe;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     private int rating;

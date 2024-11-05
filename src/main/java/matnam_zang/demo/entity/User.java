@@ -35,5 +35,5 @@ public class User {
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Like> likes;
+    private List<Favorite> favorites;
 }
