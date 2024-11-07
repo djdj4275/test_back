@@ -26,7 +26,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes/{cookingName}")
-    public List<RecipeDto> getRecipesByCookingMethod(@PathVariable String cookingName) {
+    public List<RecipeDto> getRecipesByCookingMethod(@PathVariable("cookingName") String cookingName) {
         return recipeService.getRecipesByCookingName(cookingName);
     }
 }

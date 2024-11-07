@@ -3,6 +3,9 @@ package matnam_zang.demo.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -29,20 +34,29 @@ public class User {
     private LocalDateTime userCreateAt;
     private LocalDateTime userUpdateAt;
 
-    @Enumerated(EnumType.STRING) // Enum을 문자열로 저장
-    private Role role;  // Role 추가
-
-    public enum Role {
-        USER, ADMIN
-    }
-
     // recipe 테이블과 일대다 관계 (recipe 엔티티에서 user라는 외래키로 참조)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE) // 이때 OneToMany쪽의 일인쪽의 테이블을 mappedBy
+    @OneToMany(mappedBy = "user") // 이때 OneToMany쪽의 일인쪽의 테이블을 mappedBy
+    @OnDelete(action = OnDeleteAction.CASCADE) 
     private List<Recipe> recipes;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Favorite> favorites;
+
+    // 엔티티가 처음 저장되기 전에 호출되어 userCreateAt 설정
+    @PrePersist
+    public void prePersist() {
+        this.userCreateAt = LocalDateTime.now(); // 엔티티 처음 생성 시 현재 시간 설정
+        this.userUpdateAt = LocalDateTime.now(); // 엔티티 처음 생성 시 현재 시간 설정
+    }
+
+    // 엔티티가 업데이트되기 전에 호출되어 userUpdateAt 갱신
+    @PreUpdate
+    public void preUpdate() {
+        this.userUpdateAt = LocalDateTime.now(); // 엔티티 수정 시 현재 시간 설정
+    }
 }

@@ -2,7 +2,9 @@ package matnam_zang.demo.entity;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Ingredient {
 
     private String name;
 
-    @OneToMany(mappedBy = "ingredient" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "ingredient") // cascade = CascadeType.REMOVE (jpa 단에서 cascade 옵션관리 - db쪽에서는 확인 불가)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RecipeIngredient> recipes;
 }

@@ -44,18 +44,23 @@ public class Recipe {
     @Column(columnDefinition = "int default 0") // 조회수 초기값을 0으로 설정
     private int viewCount;
 
-    @OneToMany(mappedBy = "recipe" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RecipeIngredient> ingredients;
 
-    @OneToMany(mappedBy = "recipe" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Instruction> instructions;
 
-    @OneToMany(mappedBy = "recipe" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RecipeCategory> categories;
 
-    @OneToMany(mappedBy = "recipe" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "recipe")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Favorite> favorites;
 }

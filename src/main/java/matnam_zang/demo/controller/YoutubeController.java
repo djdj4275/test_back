@@ -20,7 +20,7 @@ public class YoutubeController {
     }
 
     @GetMapping("/youtube/{searchName}")
-    public List<YouTubeDto> getYoutubeBySearchNameMethod(@PathVariable String searchName) {
+    public List<YouTubeDto> getYoutubeBySearchNameMethod(@PathVariable("searchName") String searchName) {
         return youtubeService.getYoutubeBySearchName(searchName);
     }
 }

@@ -45,7 +45,7 @@ public class UserService {
     // 회원가입
     public void registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(User.Role.USER);  // 기본 ROLE_USER 설정
+        // user.setRole(User.Role.USER);  // 기본 ROLE_USER 설정
         userRepository.save(user);
     }
 

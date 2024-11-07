@@ -2,6 +2,9 @@ package matnam_zang.demo.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +23,7 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category" , cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "category")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RecipeCategory> recipes;
 }

@@ -4,6 +4,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -12,12 +14,13 @@ import java.util.Date;
 @Component
 public class TokenProvider {
 
-    private static final String SECRET_KEY = "yourSecretKey";  // 비밀 키 (환경변수 등으로 관리하는 것이 좋습니다)
-    private static final long EXPIRATION_TIME = 3600000; // 1시간 (밀리초 단위)
+    @Value("${api.hashKey}")
+    private String hashKey;
+    private static final long EXPIRATION_TIME = 86400000; // 24시간 (밀리초 단위)
 
     // 비밀 키를 Key 객체로 변환
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());  // SecretKey를 Key 객체로 변환
+        return Keys.hmacShaKeyFor(hashKey.getBytes());  // SecretKey를 Key 객체로 변환
     }
 
     // JWT 토큰 생성

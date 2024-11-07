@@ -20,9 +20,11 @@ public class SecurityConfig {
         http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/register").permitAll()
-            .requestMatchers("/api/auth/login").permitAll() // 로그인도 공개
-            .anyRequest().hasRole("USER") // USER 권한이 있어야 다른 요청 허용
+        .anyRequest().permitAll()
+            // .requestMatchers("/api/youtube").permitAll()
+            // .requestMatchers("/api/auth/register").permitAll()
+            // .requestMatchers("/api/auth/login").permitAll() // 로그인도 공개
+            // .anyRequest().hasRole("USER") // USER 권한이 있어야 다른 요청 허용
         );
 
         return http.build();
