@@ -5,6 +5,8 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +28,13 @@ public class User {
     private String password;
     private LocalDateTime userCreateAt;
     private LocalDateTime userUpdateAt;
+
+    @Enumerated(EnumType.STRING) // Enum을 문자열로 저장
+    private Role role;  // Role 추가
+
+    public enum Role {
+        USER, ADMIN
+    }
 
     // recipe 테이블과 일대다 관계 (recipe 엔티티에서 user라는 외래키로 참조)
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE) // 이때 OneToMany쪽의 일인쪽의 테이블을 mappedBy

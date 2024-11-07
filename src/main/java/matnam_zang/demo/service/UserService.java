@@ -44,9 +44,8 @@ public class UserService {
 
     // 회원가입
     public void registerUser(User user) {
-        // 비밀번호 암호화
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // User 저장
+        user.setRole(User.Role.USER);  // 기본 ROLE_USER 설정
         userRepository.save(user);
     }
 
